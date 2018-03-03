@@ -1,0 +1,7 @@
+Hello World!
+My last name is Davis.
+My student ID number is: G00097684
+According to the syllabus, we will be using some SQL, and Django.
+One line per statement
+No tabs, and all indentation is 4 spaces
+variables named using all lower case and underscores

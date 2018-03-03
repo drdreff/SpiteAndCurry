@@ -1,0 +1,46 @@
+// Mark Davis
+// markdavis@my.smccd.edu
+// CIS 254 ON
+// CD_Class_UML.dot
+// UML Diagram for the CD class
+// Assignment #2
+// Wed Aug  2 19:11:47 PDT 2017
+
+digraph G {
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+  node [
+          fontname = "Bitstream Vera Sans"
+          fontsize = 8
+          shape = "record"
+  ]
+
+  edge [
+          fontname = "Bitstream Vera Sans"
+          fontsize = 8
+  ]
+  labelloc="t";
+  label="Mark Davis : CD UML";
+  CD [
+          label = "{
+            CD
+            |
+            - title : String\l
+            - artist : String\l
+            - price : Double\l
+            - numberOfTracks : int \l
+            |
+            «constructor» CD( title: String, artist: String, price Double,
+            numberOfTracks int )\l
+            + setTitle( title : String  ) : void\l
+            + getTitle() : String \l
+            + setArtist( artist : String ) : void \l
+            + getArtist() : String\l
+            + setPrice( price : Double ) : void \l
+            + getPrice() : Double\l
+            + setNumberOfTracks( numberOfTracks : int ) : void \l
+            + getNumberOfTracks() : int\l
+            + toString() : String\l
+          }"
+  ]
+}

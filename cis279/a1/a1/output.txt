@@ -1,0 +1,22 @@
+mdavis@jarvis:~/school/cis279/a1$ g++ a1_1.cpp -o a1 && ./a1
+Welcome, this application analyzes a bitmap and returns one
+with the contiguous shapes marked with ascending values.
+Enter image size
+7
+Enter the pixel array in row-major order
+0 0 1 0 0 0 0
+0 0 1 1 0 0 0
+0 0 0 0 1 0 0
+0 0 0 1 1 0 0
+1 0 0 0 1 0 0
+1 1 1 0 0 0 0
+1 1 1 0 0 0 0
+The labeled image is
+0  0  2  0  0  0  0
+0  0  2  2  0  0  0
+0  0  0  0  3  0  0
+0  0  0  3  3  0  0
+4  0  0  0  3  0  0
+4  4  4  0  0  0  0
+4  4  4  0  0  0  0
+mdavis@jarvis:~/school/cis279/a1$

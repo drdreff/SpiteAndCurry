@@ -1,0 +1,31 @@
+digraph G {
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+  node [
+          fontname = "Bitstream Vera Sans"
+          fontsize = 8
+          shape = "record"
+  ]
+
+  edge [
+          fontname = "Bitstream Vera Sans"
+          fontsize = 8
+  ]
+  labelloc="t";
+  label="Mark Davis : GradeBook UML";
+  Animal [
+          label = "{
+            GradeBook
+            |
+            - courseName : String\l
+            - instructorName : String \l
+            |
+            «constructor» GradeBook( course: String, instructor: String )\l
+            + setCourseName( name : String  ) : void\l
+            + getCourseName() : String \l
+            + setInstructorName( name : String ) : void \l
+            + getInstructorName() : String\l
+            + displayMessage() : void\l
+          }"
+  ]
+}
