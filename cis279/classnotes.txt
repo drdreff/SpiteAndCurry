@@ -1,0 +1,27 @@
+serializability theory
+
+simula 67
+https://www.google.com/search?ei=1BdxWpX9BcPgjwOEhozIAw&q=phil+bernstein+concurrency+university+of+washington&oq=phil+bernstein+concurrency+university+of+wash&gs_l=psy-ab.3.0.33i21k1.5039.8419.0.9886.19.19.0.0.0.0.104.1378.18j1.19.0....0...1c.1.64.psy-ab..0.14.965...33i160k1.0.QEGf6xuw-Qo
+
+loop invariant: the condition that is always true at the bottom of the loop.
+Tony Hoare -- billion dollar mistake
+https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare
+
+Sartaj Sahni -- source of exercise code
+demogan's law:
+    while(foo != bar || baz != bar)
+    equals
+    while not (foo == bar && baz == bar)
+
+
+Swim up until you get eaten by a bear
+
+conditional conjunction: while (foo && bar ){} bar is not evaluated unless foo is true
+
+can't leave them equal, otherwise some will never get serviced.
+A2 note:
+arrival time
+order time
+beer type
+drink time
+reorder?

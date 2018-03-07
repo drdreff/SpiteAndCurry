@@ -1,0 +1,9 @@
+digraph G {
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+  a -> b -> c -> d ;
+  e -> f ;
+  e -> g ;
+  e -> h;
+  e -> j; 
+}
