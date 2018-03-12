@@ -1,8 +1,10 @@
-//
-//  Assignment 2
-//
-//  main.cpp
-//
+/* Mark Davis
+ * markdavis@my.smccd.edu
+ * CIS 279
+ * Assignment #2 The Sofwatre Gurus Bar
+ *
+ * Goal: explore building our own heap and using it as a PriorityQueue
+ */
 
 #include <iostream>
 
@@ -19,7 +21,6 @@ int main(int argc, const char * argv[]) {
     while (t < 240) {
         // new group every 2-5 minutes
         t += randBetween(2,5);
-
         // group size ranges from 1 to 5
         int groupSize = weightedProbability({20, 20, 20, 20, 20}) + 1;
         theSimulation.scheduleEvent(new ArriveEvent(t, groupSize));
