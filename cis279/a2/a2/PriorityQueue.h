@@ -12,7 +12,7 @@ class priority_queue {
 public:
     void insert(Item item) {
         items.push_back(item);
-        swim(++currentSize);
+        swim(count());
     }
 
     bool empty() {
@@ -24,9 +24,9 @@ public:
     }
 
     void deleteMin() {
-        exch(1, currentSize--);
-        sink(1, currentSize);
-        return items.pop_back();
+        exch(1, count());
+        items.pop_back();
+        sink(1);
     }
 
 private:
@@ -46,23 +46,22 @@ private:
     }
 
     void swim(int i) {
-        while (i > 1 && (itemAt(i/2) > itemAt(i))) {
+        while (i > 1 && (compare(itemAt(i/2),itemAt(i))) ) {
             exch(i, i/2);
             i = i/2;
         }
     }
 
     void sink(int i) {
-        while (2*i <= currentSize) {
+        while (2*i <= count()) {
             int j = 2*i;
-            if (j < currentSize && (itemAt(j) > itemAt(j+1))) j++;
-            if (!(itemAt(i) > itemAt(j))) break;
+            if (j < count() && (compare(itemAt(j),itemAt(j+1)))) j++;
+            if (!(compare(itemAt(i),itemAt(j)))) break;
             exch(i, j);
             i = j;
         }
     }
 
-    int currentSize;
     Container items;
     Compare compare;
 };
