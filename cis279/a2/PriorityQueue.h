@@ -1,60 +1,60 @@
+#include <vector>
 
-public class MaxPQ<Key extends Comparable<Key>> {
-    private Key[ ] pq;
-    private int N;
-
-    public MaxPQ(int capacity);
-    public boolean isEmpty( );
-    public void insert(Key key);
-    public Key delMax( );
-    private void swim(int k);
-    private void sink(int k, int N);
-    private boolean less(int i, int j);
-    private void exch(int i, int j);
+class MinPQ {
+    public:
+        MinPQ();
+        bool isEmpty( );
+        void insert(int x);
+        int delMin( );
+    private:
+        void swim(int k);
+        void sink(int k, int N);
+        void swap(int i, int j);
+        std::vector<int> pq; // first element gets 0
+        int N;
 };
 
-public MaxPQ(int capacity){
-    pq = (Key[ ]) new Comparable[capacity+1];
+MinPQ::MinPQ(){
+    // on construct, prefill the zeroth element
+    pq.push_back(0);
 }
 
-public boolean isEmpty( ){
-    return N == 0;
+bool MinPQ::isEmpty( ){
+    return (N == 0);
 }
 
-private void exch(int i, int j){
-    Key t = pq[i]; pq[i] = pq[j]; pq[j] = t;
+void MinPQ::insert(int x) {
+    pq.push_back(x);
+    MinPQ::swim(++N);
 }
 
-private boolean less(int i, int j){
-    return pq[i].compareTo(pq[j]) < 0;
+int MinPQ::delMin() {
+    int min = pq[1];
+    MinPQ::swap(1, N--);
+    MinPQ::sink(1, N);
+    pq.pop_back();
+    return min;
 }
 
-public Key delMax() {
-    Key max = pq[1];
-    exch(1, N--);
-    sink(1, N);
-    pq[N+1] = null;
-    return max;
+void MinPQ::swim(int k) {
+    while (k > 1 && (pq[k/2] > pq[k])) {
+        MinPQ::swap(k, k/2); // parent of
+        k = k/2; // node k is at k/2
+    }
 }
 
-private void sink(int k, int N) {
+void MinPQ::sink(int k, int N) {
     while (2*k <= N) {
         int j = 2*k;
-        if (j < N && less(j, j+1)) j++;
-        if (!less(k, j)) break;
-        exch(k, j);
+        if (j < N && (pq[j] > pq[j+1])) j++;
+        if (!(pq[k] > pq[j])) break;
+        MinPQ::swap(k, j);
         k = j;
     }
 }
 
-public void insert(Key x) {
-    pq[++N] = x;
-    swim(N);
-}
-
-private void swim(int k) {
-    while (k > 1 && less(k/2, k)) {
-        exch(k, k/2); // parent of
-        k = k/2; // node k is at k/2
-    }
+void MinPQ::swap(int i, int j){
+    int temp = pq[i];
+    pq[i] = pq[j];
+    pq[j] = temp;
 }
