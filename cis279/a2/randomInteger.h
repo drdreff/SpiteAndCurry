@@ -1,4 +1,5 @@
 
+
 class randomInteger {
     public:
         unsigned int operator ( ) (unsigned int);

@@ -1,4 +1,52 @@
+/* Mark Davis
+ * markdavis@my.smccd.edu
+ * CIS 279
+ * Assignment #2 The Sofwatre Gurus Bar
+ *
+ * Goal: explore building our own heap and using it as a PriorityQueue
+ */
 
+# include <iostream>
+# include <PriorityQueue>
+# include "event.h"
+// # include "randomInteger.h"
+// # include "SoftwareGurusBar.h"
+
+using namespace std;
+
+class randomInteger {
+    public:
+        unsigned int operator ( ) (unsigned int);
+    } randomizer;
+
+    unsigned int randomInteger::operator ( ) (unsigned int max){
+        // rand return random integer
+        // convert to unsigned to make positive
+        // take remainder to put in range
+        unsigned int rval = rand( );
+        return rval % max;
+    }
+
+    unsigned int randBetween(int low, int high) {
+        return low + randomizer(high - low);
+}
+
+
+class SoftwareGurusBar {
+    public:
+        // try with 50 chairs, then try with 40, 60, ...
+        // in order to find out “optimal” profit prospects
+        SoftwareGurusBar( ) : freeChairs(50), profit(0.0), menu[2,3,4] { }
+        bool canSeat (unsigned int numberOfPeople); // slide 12
+        void order(unsigned int beerType); // slide 13
+        void leave(unsigned int numberOfPeople); // slide 13
+        unsigned int freeChairs;
+        double profit;
+        int menu [];
+};
+
+SoftwareGurusBar theBar;
+SimulationFramework theSimulation;
 
 bool SoftwareGurusBar::canSeat (unsigned int numberOfPeople){
     // if sufficient room, then seat customers
@@ -28,4 +76,20 @@ void SoftwareGurusBar::leave (unsigned int numberOfPeople) {
     cout << "Time: " << theSimulation.currentTime;
     cout << " group of size " << numberOfPeople << " leaves" << endl;
     freeChairs += numberOfPeople;
+}
+
+
+int main( ) {
+    // load priority queue with initial Arrive Events then run simulation
+    unsigned int t = 0;
+    // load 4 hours (240 minutes) of Arrive Events
+    while (t < 240) {
+        // new group every 2-5 minutes
+        t += randBetween(2,5);
+        // group size ranges from 1 to 5
+        theSimulation.scheduleEvent(new ArriveEvent(t, randBetween(1,5)));
+    }
+    // then run simulation and print profits
+    theSimulation.run( );
+    cout << "Total profits " << theBar.profit << endl;
 }

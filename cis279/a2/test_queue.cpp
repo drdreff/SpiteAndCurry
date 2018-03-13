@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
-#include "PriorityQueue.h"
+#include "IntegerQueue.h"
 
 
 using namespace std;
