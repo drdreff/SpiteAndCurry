@@ -11,17 +11,23 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ImageUploadModal from './modals/imgUploadModal';
 import MakeFacetModal from './modals/facetModal';
+import RegionCreateModal from './modals/regionCreateModal';
+import SearchModal from './modals/searchModal';
 
 export default function App() {
+
+  console.log(window.innerHeight);
 
   return (
     <>
 
-    <Box>
+    <Box style={{ maxHeight: window.innerHeight, maxWidth: window.innerWidth }}>
     <CssBaseline />
     <Sidebar />
     <ImageUploadModal />
     <MakeFacetModal />
+    <RegionCreateModal />
+    <SearchModal />
     </Box>
     </>
   );

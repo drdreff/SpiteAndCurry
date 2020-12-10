@@ -1,9 +1,8 @@
-const imgReducer = (state = '', action) => {
+const imgReducer = (state = {image: '', id: 0}, action) => {
 
     switch(action.type) {
       case 'SET_IMAGE':
-        state = action.image;
-        return state;
+        return {image: action.image, id: action.id };
       default:
         return state;
     }

@@ -8,29 +8,36 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { imageModal, updateScroll } from '../redux/actions';
+import { searchModal, startSearch } from '../redux/actions';
 
 const api = axios.create({
-  baseURL: `http://localhost:8000/api/imgfiles/`
+  baseURL: `http://localhost:8000/api/facets/`
 })
 
-class ImageUploadModal extends Component {
+class SearchModal extends Component {
 
-  state = {
-    file: null
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
   }
 
   handleClose = () => {
-    this.state.image = null;
 
+  }
+
+  search = () => {
+    this.props.startSearch();
+    this.props.searchModal();
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
     let form_data = new FormData();
-    form_data.append('image', this.state.file);
-    let url = 'http://localhost:8000/api/imgfiles/';
+    form_data.append('name', this.state.name);
+    let url = 'http://localhost:8000/api/facets/';
     console.log(form_data);
       axios.post(url, form_data, {
         headers: {
@@ -41,36 +48,28 @@ class ImageUploadModal extends Component {
             console.log(res.data);
           })
           .catch(err => console.log(err))
-      this.props.updateScroll();
-      this.props.imageModal();
-  };
-
-
-  handleImageChange = (e) => {
-    this.setState({
-      file: e.target.files[0]
-    })
+    this.props.searchModal();
   };
 
 render () {
   return (
     <div>
       <Dialog open={this.props.open} onClose={this.handleClose()} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Upload Image</DialogTitle>
+        <DialogTitle id="form-dialog-title">Facet Selection</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Upload an image to the network, or Cancel.
+            You have selected facet: {this.props.facetID} on image: {this.props.imageID}. Would you like to delete this region, or search from this image?
           </DialogContentText>
-                    <input type="file"
-                        id="image"
-                        accept="image/png, image/jpeg"  onChange={this.handleImageChange} required/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.imageModal} color="primary">
+          <Button onClick={this.props.searchModal} color="primary" disabled>
+            Delete
+          </Button>
+          <Button onClick={this.props.searchModal} color="primary">
             Cancel
           </Button>
-          <Button onClick={this.handleSubmit} color="primary">
-            Submit
+          <Button onClick={this.search} color="primary">
+            Search
           </Button>
         </DialogActions>
       </Dialog>
@@ -80,8 +79,10 @@ render () {
 
 const mapStateToProps = (state) => {
   return {
-    open: state.modalReducer.image
+    facetID: state.searchReducer.facetID,
+    imageID: state.searchReducer.imageID,
+    open: state.modalReducer.searchModal
   }
 }
 
-export default connect(mapStateToProps, {imageModal, updateScroll})(ImageUploadModal)
+export default connect(mapStateToProps, {searchModal, startSearch})(SearchModal)
