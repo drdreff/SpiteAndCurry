@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
+import { connect } from 'react-redux';
+import { setImage } from '../redux/actions';
 
-export default class MakeGraph extends Component {
+class MakeGraph extends Component {
 
     constructor(props) {
       super(props);
@@ -12,15 +14,26 @@ export default class MakeGraph extends Component {
       d3.selectAll("svg").remove();
     }
 
+    imagesetter = () => {
+      console.log(this.props);
+    }
+
     makeGraph = () => {
       const nodes = this.props.nodelist.map((d) => Object.assign({}, d));
       const links = this.props.linklist.map((d) => Object.assign({}, d));
 
       console.log(links);
       console.log(nodes);
+      console.log(this.props)
 
       const height = 500;
       const width = 500;
+
+      function clickImage(event, d) {
+        let temp = {image: d.image, id: d.id};
+        console.log(this);
+
+      }
 
       const simulation = d3.forceSimulation(nodes)
           .force("link", d3.forceLink(links).id(d => d.id).distance(150))
@@ -48,7 +61,12 @@ export default class MakeGraph extends Component {
                       .attr("alt","test")
                       .attr("xlink:href", d => d.image)
                       .attr("width", 60)
-                      .attr("height", 60);
+                      .attr("height", 60)
+                      .on("click", clickImage);
+
+
+
+
 
       node.append("title")
           .text(d => d.image);
@@ -85,3 +103,5 @@ export default class MakeGraph extends Component {
         );}
 
 }
+
+export default connect(null, { setImage })(MakeGraph)
