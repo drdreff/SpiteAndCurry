@@ -33,6 +33,16 @@ class RegionCreateModal extends Component {
     this.mapImages();
   }
 
+  updateUnlinked = () => {
+     api.get('imgfiles/'+ this.props.imgid + '/unlinked/?facet=' + this.props.facet).then(res => {
+      console.log(res.data)
+      this.setState({...this.state, unlinked: res.data})
+    });
+    this.mapImages();
+  }
+
+  
+
   mapImages = () => {
     this.state = { ...this.state,
                     checkedImages: this.state.unlinked.map(
@@ -45,23 +55,10 @@ class RegionCreateModal extends Component {
     console.log(this.state);
   }
 
-  updateUnlinked = () => {
-    api.get('imgfiles/'+ this.props.imgid + '/unlinked/?facet=' + this.props.facet).then(res => {
-      console.log(res.data)
-      this.setState({...this.state, unlinked: res.data})
-    });
-    this.mapImages();
-  }
+
 
   handleClose = () => {
-    this.state = { ...this.state,
-                    linkedImages: this.state.checkedImages.filter(img => img.checked === true).map(
-                      (image) => ({
-                        key: image.key,
-                      }),
-                      {}
-                    )}
-    console.log(this.state.linkedImages.map(arr => {return arr.key}));
+
   }
 
   checkedImage = (event) => {
@@ -119,15 +116,6 @@ class RegionCreateModal extends Component {
     this.props.regionModal();
   };
 
-
-  _handleFacetChange = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    this.setState({
-      name: e.target.value,
-    }, function(){console.log(this.state);});
-
-  };
 
 render () {
   return (

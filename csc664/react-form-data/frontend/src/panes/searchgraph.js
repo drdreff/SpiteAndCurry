@@ -5,7 +5,7 @@ export default class MakeGraph extends Component {
 
     constructor(props) {
       super(props);
-
+      this.myRef = React.createRef();
     }
 
     refreshGraph = () => {
@@ -13,8 +13,8 @@ export default class MakeGraph extends Component {
     }
 
     makeGraph = () => {
-      const nodes = this.props.nodelist.map(d => Object.create(d));
-      const links = this.props.linklist.map(d => Object.create(d));
+      const nodes = this.props.nodelist.map((d) => Object.assign({}, d));
+      const links = this.props.linklist.map((d) => Object.assign({}, d));
 
       console.log(links);
       console.log(nodes);
@@ -23,7 +23,7 @@ export default class MakeGraph extends Component {
       const width = 500;
 
       const simulation = d3.forceSimulation(nodes)
-          .force("link", d3.forceLink(links).id(d => d.id))
+          .force("link", d3.forceLink(links).id(d => d.id).distance(150))
           .force("charge", d3.forceManyBody())
           .force("center", d3.forceCenter(width / 2, height / 2));
 
@@ -42,30 +42,33 @@ export default class MakeGraph extends Component {
       const node = svg.append("g")
                       .attr("stroke", "#fff")
                       .attr("stroke-width", 1.5)
-                      .selectAll("circle")
+                      .selectAll("image")
                       .data(nodes)
-                      .join("circle")
-                      .attr("r", 5);
+                      .join("image")
+                      .attr("alt","test")
+                      .attr("xlink:href", d => d.image)
+                      .attr("width", 60)
+                      .attr("height", 60);
 
       node.append("title")
-          .text(d => d.id);
+          .text(d => d.image);
 
       simulation.on("tick", () => {
         link
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
+            .attr("x1", d => d.source.x )
+            .attr("y1", d => d.source.y )
+            .attr("x2", d => d.target.x )
+            .attr("y2", d => d.target.y );
 
         node
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
+            .attr("x", d => d.x - 30)
+            .attr("y", d => d.y - 30);
       });
     }
 
 
     componentDidMount() {
-      this.myRef = React.createRef();
+
       this.makeGraph();
     }
 

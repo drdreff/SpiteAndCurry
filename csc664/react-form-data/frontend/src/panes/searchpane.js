@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux';
 import { setImage } from '../redux/actions';
 import SearchGraph from './searchgraph';
-import Chart1 from './testChart';
 import * as d3 from "d3";
 
 

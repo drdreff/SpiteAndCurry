@@ -1,13 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
-import ViewPane from './panes/viewpane'
-import SearchPane from './panes/searchpane'
+import React from 'react';
 import Sidebar from './panes/sidebar'
-import ImgScroll from './panes/imgscroll'
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ImageUploadModal from './modals/imgUploadModal';
 import MakeFacetModal from './modals/facetModal';
@@ -22,7 +14,6 @@ export default function App() {
     <>
 
     <Box style={{ maxHeight: window.innerHeight, maxWidth: window.innerWidth }}>
-    <CssBaseline />
     <Sidebar />
     <ImageUploadModal />
     <MakeFacetModal />

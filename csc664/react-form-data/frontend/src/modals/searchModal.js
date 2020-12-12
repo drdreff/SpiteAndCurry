@@ -10,18 +10,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { searchModal, startSearch } from '../redux/actions';
 
-const api = axios.create({
-  baseURL: `http://localhost:8000/api/facets/`
-})
-
 class SearchModal extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
 
   handleClose = () => {
 
