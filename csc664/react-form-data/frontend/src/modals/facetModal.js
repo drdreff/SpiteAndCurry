@@ -16,8 +16,11 @@ const api = axios.create({
 
 class MakeFacetModal extends Component {
 
-  state = {
-    facet: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+    }
   }
 
   handleClose = () => {
@@ -29,7 +32,7 @@ class MakeFacetModal extends Component {
     e.preventDefault();
     console.log(this.state);
     let form_data = new FormData();
-    form_data.append('name', this.state.facet);
+    form_data.append('name', this.state.name);
     let url = 'http://localhost:8000/api/facets/';
     console.log(form_data);
       axios.post(url, form_data, {
@@ -41,27 +44,29 @@ class MakeFacetModal extends Component {
             console.log(res.data);
           })
           .catch(err => console.log(err))
-      this.handleClose();
+    this.props.facetModal();
   };
 
 
-  handleChange = (e) => {
+  _handleFacetChange = (e) => {
     e.preventDefault();
+    console.log(e.target.value);
     this.setState({
-      [e.target.id]: e.target.value
-    })
+      name: e.target.value,
+    }, function(){console.log(this.state);});
+
   };
 
 render () {
   return (
     <div>
       <Dialog open={this.props.open} onClose={this.handleClose()} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Upload Image</DialogTitle>
+        <DialogTitle id="form-dialog-title">Create Facet</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Upload an image to the network, or Cancel.
+            Enter a Facet label.
           </DialogContentText>
-                    <TextField id="filled-basic" label='Facet' onChange={(e) => this.handleChange(e)} />
+                    <TextField label='Facet' onChange={this._handleFacetChange}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.facetModal} color="primary">

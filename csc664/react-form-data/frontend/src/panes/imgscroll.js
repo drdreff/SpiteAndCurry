@@ -31,8 +31,17 @@ class ImgScroll extends Component {
     })
   }
 
-  handleSetImage = (image) => {
-    this.props.setImage(image)
+  handleSetImage = (tile) => {
+    this.props.setImage(tile)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.reload !== this.props.reload){
+      api.get('/').then(res => {
+        console.log(res.data)
+        this.setState({imagelist: res.data})
+      })
+    }
   }
 
   render(){
@@ -40,14 +49,14 @@ class ImgScroll extends Component {
     <div style={{height: "100%"}}>
           <GridList style={{flexWrap: 'nowrap',
                             transform: 'translateZ(0)',
-                          }} cols={3}>
+                          }} cols={4}>
             {this.state.imagelist.map((tile) => (
               <GridListTile key={tile.id}>
                 <img resizeMode="contain" src={tile.image} alt={tile.name} />
                 <GridListTileBar
                   title={tile.name}
                   actionIcon={
-                    <IconButton aria-label={`star ${tile.name}`} onClick={() => {this.handleSetImage(tile.image)}}>
+                    <IconButton aria-label={`star ${tile.name}`} onClick={() => {this.handleSetImage(tile)}}>
                       <StarBorderIcon style={{}} />
                     </IconButton>
                   }
@@ -59,4 +68,10 @@ class ImgScroll extends Component {
   );}
 }
 
-export default connect(null, {setImage})(ImgScroll)
+const mapStateToProps = (state) => {
+  return {
+    reload: state.modalReducer.imgUpdate
+  }
+}
+
+export default connect(mapStateToProps, {setImage})(ImgScroll)

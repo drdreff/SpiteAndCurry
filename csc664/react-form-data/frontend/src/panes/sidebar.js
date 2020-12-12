@@ -98,6 +98,10 @@ constructor() {
   super();
 }
 
+componentDidUpdate() {
+  
+}
+
 render() {
   return (
     <div style={{display: 'flex',}}>
@@ -124,7 +128,7 @@ render() {
         </List>
       </Drawer>
 
-      <Grid container direction="row" style={{flex: 1}}>
+      <Grid container direction="row" style={{flex: "fill"}}>
         <Grid container item direction="column" xs={12}>
           <Grid container item direction="row">
             <Grid item xs={6}>

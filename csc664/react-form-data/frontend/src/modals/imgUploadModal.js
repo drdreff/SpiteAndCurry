@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { imageModal } from '../redux/actions';
+import { imageModal, updateScroll } from '../redux/actions';
 
 const api = axios.create({
   baseURL: `http://localhost:8000/api/imgfiles/`
@@ -17,7 +17,7 @@ const api = axios.create({
 class ImageUploadModal extends Component {
 
   state = {
-    image: null
+    file: null
   }
 
   handleClose = () => {
@@ -29,7 +29,7 @@ class ImageUploadModal extends Component {
     e.preventDefault();
     console.log(this.state);
     let form_data = new FormData();
-    form_data.append('image', this.state.image);
+    form_data.append('image', this.state.file);
     let url = 'http://localhost:8000/api/imgfiles/';
     console.log(form_data);
       axios.post(url, form_data, {
@@ -41,13 +41,14 @@ class ImageUploadModal extends Component {
             console.log(res.data);
           })
           .catch(err => console.log(err))
-      this.handleClose();
+      this.props.updateScroll();
+      this.props.imageModal();
   };
 
 
   handleImageChange = (e) => {
     this.setState({
-      image: e.target.files[0]
+      file: e.target.files[0]
     })
   };
 
@@ -83,4 +84,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {imageModal})(ImageUploadModal)
+export default connect(mapStateToProps, {imageModal, updateScroll})(ImageUploadModal)
